@@ -26,8 +26,9 @@ public class ChessPosition {
 	protected Position toPosition() {
 		return new Position(8 - linha, coluna - 'a');
 	}
+	
 	protected static ChessPosition fromPosition(Position posicao) {
-		return new ChessPosition((char)('a' - posicao.getColuna()), 8 - posicao.getLinha());
+		return new ChessPosition((char)('a' + posicao.getColuna()), 8 - posicao.getLinha());
 	}
 	@Override
 	public String toString() {
