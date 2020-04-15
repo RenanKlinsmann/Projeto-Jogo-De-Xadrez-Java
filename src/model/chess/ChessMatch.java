@@ -1,7 +1,6 @@
 package model.chess;
 
 import model.boardgamer.Board;
-import model.boardgamer.Position;
 import model.chess.pieces.King;
 import model.chess.pieces.Rook;
 
@@ -24,10 +23,14 @@ public class ChessMatch {
 	    return mat;
 	}
 	
+	private void placeNewPiece(char coluna, int linha, ChessPiece peca) {
+		tabuleiro.placePiece(peca, new ChessPosition(coluna, linha).toPosition());
+	}
+	
 	private void initialSetup() {
-		tabuleiro.placePiece(new Rook(tabuleiro, Color.WHITE),new Position(2, 1));
-		tabuleiro.placePiece(new King(tabuleiro, Color.BLACK),new Position(0, 4));
-		tabuleiro.placePiece(new King(tabuleiro, Color.WHITE),new Position(7, 4));
+		placeNewPiece('b', 6, new Rook(tabuleiro, Color.WHITE));
+		placeNewPiece('e', 8, new King(tabuleiro, Color.BLACK));
+		placeNewPiece('e', 1, new King(tabuleiro, Color.WHITE));
 	}
 	
 }
