@@ -1,6 +1,8 @@
 package model.chess;
 
 import model.boardgamer.Board;
+import model.boardgamer.Piece;
+import model.boardgamer.Position;
 import model.chess.pieces.King;
 import model.chess.pieces.Rook;
 
@@ -21,6 +23,27 @@ public class ChessMatch {
 	    	}
 	    }
 	    return mat;
+	}
+	
+	public ChessPiece performChessMove(ChessPosition sourcePosition, ChessPosition targetPosition) {
+		Position source = sourcePosition.toPosition();
+		Position target = targetPosition.toPosition();
+		validateSourcePosition(source);
+		Piece capturedPiece = makeMove(source, target);
+		return (ChessPiece)capturedPiece;
+	}
+	
+	private void validateSourcePosition(Position posicao) {
+		if(!tabuleiro.thereIsAPiece(posicao)) {
+			throw new ChessException("Não existe peça na posição de origem");
+		}
+	}
+	
+	private Piece makeMove (Position source, Position target) {
+		Piece p = tabuleiro.removePiece(source);
+		Piece capturePiece = tabuleiro.removePiece(target);
+		tabuleiro.placePiece(p, target);
+		return capturePiece;
 	}
 	
 	private void placeNewPiece(char coluna, int linha, ChessPiece peca) {
