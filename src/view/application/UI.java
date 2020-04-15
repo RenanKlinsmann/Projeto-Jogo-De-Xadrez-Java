@@ -42,7 +42,8 @@ public class UI {
 			char coluna = s.charAt(0);
 			int linha = Integer.parseInt(s.substring(1));
 			return new ChessPosition(coluna, linha);
-		} catch (RuntimeException e) {
+		} 
+		catch (RuntimeException e) {
 			throw new InputMismatchException("Erro lendo posição de xadrez. valor valido vai de a1 ate h8.");
 		}
 	}
@@ -51,21 +52,38 @@ public class UI {
 		for (int i = 0; i < pecas.length; i++) {
 			System.out.print((8 - i) + " ");// imprime a numeracao lateral do tabuleiro
 			for (int j = 0; j < pecas.length; j++) {
-				printPiece(pecas[i][j]);
+				printPiece(pecas[i][j], false);
+			}
+			System.out.println();
+		}
+		System.out.println("  a b c d e f g h");
+	}
+	
+	public static void printBoard(ChessPiece[][] pecas, boolean[][] possibleMoves) {
+		for (int i = 0; i < pecas.length; i++) {
+			System.out.print((8 - i) + " ");// imprime a numeracao lateral do tabuleiro
+			for (int j = 0; j < pecas.length; j++) {
+				printPiece(pecas[i][j], possibleMoves[i][j]);
 			}
 			System.out.println();
 		}
 		System.out.println("  a b c d e f g h");
 	}
 
-	private static void printPiece(ChessPiece piece) {
-		if (piece == null) {
-			System.out.print("-");
-		} else {
-			if (piece.getCor() == Color.WHITE) {
-				System.out.print(ANSI_WHITE + piece + ANSI_RESET);
-			} else {
-				System.out.print(ANSI_YELLOW + piece + ANSI_RESET);
+
+	private static void printPiece(ChessPiece peca, boolean background) {
+		if (background) {
+			System.out.print(ANSI_BLUE_BACKGROUND);
+		}
+		if (peca == null) {
+			System.out.print("-" + ANSI_RESET);
+		} 
+		else {
+			if (peca.getCor() == Color.WHITE) {
+				System.out.print(ANSI_WHITE + peca + ANSI_RESET);
+			} 
+			else {
+				System.out.print(ANSI_YELLOW + peca + ANSI_RESET);
 			}
 		}
 		System.out.print(" ");
