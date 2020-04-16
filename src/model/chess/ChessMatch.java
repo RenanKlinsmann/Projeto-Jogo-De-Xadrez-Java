@@ -22,6 +22,7 @@ public class ChessMatch {
 	private boolean check;
 	private boolean checkMate;
 	private ChessPiece enPassantVulnerable;
+	private ChessPiece promoted;
 
 	private List<Piece> piecesOnTheBoard = new ArrayList<>();
 	private List<Piece> capturedPieces = new ArrayList<>();
@@ -51,6 +52,10 @@ public class ChessMatch {
 
 	public ChessPiece getEnPassantVulnerable() {
 		return enPassantVulnerable;
+	}
+
+	public ChessPiece getPromoted() {
+		return promoted;
 	}
 
 	public ChessPiece[][] getPecas() {
@@ -83,6 +88,15 @@ public class ChessMatch {
 
 		ChessPiece movedPiece = (ChessPiece) tabuleiro.peca(target);
 
+		// #specialmove promotion
+		promoted = null;
+		if (movedPiece instanceof Pawn) {
+			if ((movedPiece.getCor() == Color.WHITE && target.getLinha() == 0) || (movedPiece.getCor() == Color.BLACK && target.getLinha() == 7)) {
+				promoted = (ChessPiece) tabuleiro.peca(target);
+				promoted = replacePromotedPiece("Q");
+			}
+		}
+
 		check = (testCheck(opponent(jogadorAtual))) ? true : false;
 
 		if (testCheckMate(opponent(jogadorAtual))) {
@@ -100,6 +114,32 @@ public class ChessMatch {
 		}
 
 		return (ChessPiece) capturedPiece;
+	}
+	
+	public ChessPiece replacePromotedPiece(String type) {
+		if (promoted == null) {
+			throw new IllegalStateException("Não a peça para ser promovida");
+		}
+		if (!type.equals("B") && !type.equals("C") && !type.equals("T") & !type.equals("Q")) {
+			return promoted;
+		}
+
+		Position pos = promoted.getChessPosition().toPosition();
+		Piece p = tabuleiro.removePiece(pos);
+		piecesOnTheBoard.remove(p);
+
+		ChessPiece newPiece = newPiece(type, promoted.getCor());
+		tabuleiro.placePiece(newPiece, pos);
+		piecesOnTheBoard.add(newPiece);
+
+		return newPiece;
+	}
+
+	private ChessPiece newPiece(String type, Color color) {
+		if (type.equals("B")) return new Bishop(tabuleiro, color);
+		if (type.equals("C")) return new Knight(tabuleiro, color);
+		if (type.equals("Q")) return new Queen(tabuleiro, color);
+		return new Rook(tabuleiro, color);
 	}
 
 	private Piece makeMove(Position source, Position target) {
