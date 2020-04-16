@@ -5,58 +5,59 @@ import model.boardgamer.Position;
 import model.chess.ChessPiece;
 import model.chess.Color;
 
-public class Rook extends ChessPiece {
+public class Bishop extends ChessPiece {
 
-	public Rook(Board tabuleiro, Color cor) {
+	public Bishop(Board tabuleiro, Color cor) {
 		super(tabuleiro, cor);
 	}
 
 	@Override
 	public String toString() {
-		return "T";
+		return "B";
 	}
-
+	
+	
 	@Override
 	public boolean[][] possibleMoves() {
 		boolean[][] mat = new boolean[getTabuleiro().getLinhas()][getTabuleiro().getColunas()];
 
 		Position p = new Position(0, 0);
 
-		// verifica acima da peça
-		p.setValues(posicao.getLinha() - 1, posicao.getColuna());
+		// noroeste
+		p.setValues(posicao.getLinha() - 1, posicao.getColuna() - 1);
 		while (getTabuleiro().positionExists(p) && !getTabuleiro().thereIsAPiece(p)) {
 			mat[p.getLinha()][p.getColuna()] = true;
-			p.setLinha(p.getLinha() - 1);
+			p.setValues(p.getLinha() - 1, p.getColuna() - 1);
 		}
 		if (getTabuleiro().positionExists(p) && isThereOpponentPiece(p)) {
 			mat[p.getLinha()][p.getColuna()] = true;
 		}
 
-		// verifica a esquerda da peça
-		p.setValues(posicao.getLinha(), posicao.getColuna() - 1);
+		// nordeste
+		p.setValues(posicao.getLinha() - 1, posicao.getColuna() + 1);
 		while (getTabuleiro().positionExists(p) && !getTabuleiro().thereIsAPiece(p)) {
 			mat[p.getLinha()][p.getColuna()] = true;
-			p.setColuna(p.getColuna() - 1);
+			p.setValues(p.getLinha() - 1, p.getColuna() + 1);
 		}
 		if (getTabuleiro().positionExists(p) && isThereOpponentPiece(p)) {
 			mat[p.getLinha()][p.getColuna()] = true;
 		}
 
-		// verifica a direita da peça
-		p.setValues(posicao.getLinha(), posicao.getColuna() + 1);
+		// suldeste
+		p.setValues(posicao.getLinha() + 1, posicao.getColuna() + 1);
 		while (getTabuleiro().positionExists(p) && !getTabuleiro().thereIsAPiece(p)) {
 			mat[p.getLinha()][p.getColuna()] = true;
-			p.setColuna(p.getColuna() + 1);
+			p.setValues(p.getLinha() + 1, p.getColuna() + 1);
 		}
 		if (getTabuleiro().positionExists(p) && isThereOpponentPiece(p)) {
 			mat[p.getLinha()][p.getColuna()] = true;
 		}
 
-		// verifica abaixo da peça
-		p.setValues(posicao.getLinha() + 1, posicao.getColuna());
+		// suldoeste
+		p.setValues(posicao.getLinha() + 1, posicao.getColuna() - 1);
 		while (getTabuleiro().positionExists(p) && !getTabuleiro().thereIsAPiece(p)) {
 			mat[p.getLinha()][p.getColuna()] = true;
-			p.setLinha(p.getLinha() + 1);
+			p.setValues(p.getLinha() + 1, p.getColuna() - 1);
 		}
 		if (getTabuleiro().positionExists(p) && isThereOpponentPiece(p)) {
 			mat[p.getLinha()][p.getColuna()] = true;
@@ -64,4 +65,7 @@ public class Rook extends ChessPiece {
 
 		return mat;
 	}
+	
+	
+	
 }

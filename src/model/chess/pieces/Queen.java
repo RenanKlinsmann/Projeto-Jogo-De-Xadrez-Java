@@ -5,15 +5,15 @@ import model.boardgamer.Position;
 import model.chess.ChessPiece;
 import model.chess.Color;
 
-public class Rook extends ChessPiece {
+public class Queen extends ChessPiece {
 
-	public Rook(Board tabuleiro, Color cor) {
+	public Queen(Board tabuleiro, Color cor) {
 		super(tabuleiro, cor);
 	}
 
 	@Override
 	public String toString() {
-		return "T";
+		return "Q";
 	}
 
 	@Override
@@ -22,7 +22,7 @@ public class Rook extends ChessPiece {
 
 		Position p = new Position(0, 0);
 
-		// verifica acima da peça
+		// above
 		p.setValues(posicao.getLinha() - 1, posicao.getColuna());
 		while (getTabuleiro().positionExists(p) && !getTabuleiro().thereIsAPiece(p)) {
 			mat[p.getLinha()][p.getColuna()] = true;
@@ -32,7 +32,7 @@ public class Rook extends ChessPiece {
 			mat[p.getLinha()][p.getColuna()] = true;
 		}
 
-		// verifica a esquerda da peça
+		// left
 		p.setValues(posicao.getLinha(), posicao.getColuna() - 1);
 		while (getTabuleiro().positionExists(p) && !getTabuleiro().thereIsAPiece(p)) {
 			mat[p.getLinha()][p.getColuna()] = true;
@@ -42,7 +42,7 @@ public class Rook extends ChessPiece {
 			mat[p.getLinha()][p.getColuna()] = true;
 		}
 
-		// verifica a direita da peça
+		// right
 		p.setValues(posicao.getLinha(), posicao.getColuna() + 1);
 		while (getTabuleiro().positionExists(p) && !getTabuleiro().thereIsAPiece(p)) {
 			mat[p.getLinha()][p.getColuna()] = true;
@@ -52,11 +52,51 @@ public class Rook extends ChessPiece {
 			mat[p.getLinha()][p.getColuna()] = true;
 		}
 
-		// verifica abaixo da peça
+		// below
 		p.setValues(posicao.getLinha() + 1, posicao.getColuna());
 		while (getTabuleiro().positionExists(p) && !getTabuleiro().thereIsAPiece(p)) {
 			mat[p.getLinha()][p.getColuna()] = true;
 			p.setLinha(p.getLinha() + 1);
+		}
+		if (getTabuleiro().positionExists(p) && isThereOpponentPiece(p)) {
+			mat[p.getLinha()][p.getColuna()] = true;
+		}
+
+		// nw
+		p.setValues(posicao.getLinha() - 1, posicao.getColuna() - 1);
+		while (getTabuleiro().positionExists(p) && !getTabuleiro().thereIsAPiece(p)) {
+			mat[p.getLinha()][p.getColuna()] = true;
+			p.setValues(p.getLinha() - 1, p.getColuna() - 1);
+		}
+		if (getTabuleiro().positionExists(p) && isThereOpponentPiece(p)) {
+			mat[p.getLinha()][p.getColuna()] = true;
+		}
+
+		// ne
+		p.setValues(posicao.getLinha() - 1, posicao.getColuna() + 1);
+		while (getTabuleiro().positionExists(p) && !getTabuleiro().thereIsAPiece(p)) {
+			mat[p.getLinha()][p.getColuna()] = true;
+			p.setValues(p.getLinha() - 1, p.getColuna() + 1);
+		}
+		if (getTabuleiro().positionExists(p) && isThereOpponentPiece(p)) {
+			mat[p.getLinha()][p.getColuna()] = true;
+		}
+
+		// se
+		p.setValues(posicao.getLinha() + 1, posicao.getColuna() + 1);
+		while (getTabuleiro().positionExists(p) && !getTabuleiro().thereIsAPiece(p)) {
+			mat[p.getLinha()][p.getColuna()] = true;
+			p.setValues(p.getLinha() + 1, p.getColuna() + 1);
+		}
+		if (getTabuleiro().positionExists(p) && isThereOpponentPiece(p)) {
+			mat[p.getLinha()][p.getColuna()] = true;
+		}
+
+		// sw
+		p.setValues(posicao.getLinha() + 1, posicao.getColuna() - 1);
+		while (getTabuleiro().positionExists(p) && !getTabuleiro().thereIsAPiece(p)) {
+			mat[p.getLinha()][p.getColuna()] = true;
+			p.setValues(p.getLinha() + 1, p.getColuna() - 1);
 		}
 		if (getTabuleiro().positionExists(p) && isThereOpponentPiece(p)) {
 			mat[p.getLinha()][p.getColuna()] = true;

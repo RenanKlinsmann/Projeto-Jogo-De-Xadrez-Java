@@ -7,8 +7,11 @@ import java.util.stream.Collectors;
 import model.boardgamer.Board;
 import model.boardgamer.Piece;
 import model.boardgamer.Position;
+import model.chess.pieces.Bishop;
 import model.chess.pieces.King;
+import model.chess.pieces.Knight;
 import model.chess.pieces.Pawn;
+import model.chess.pieces.Queen;
 import model.chess.pieces.Rook;
 
 public class ChessMatch {
@@ -194,7 +197,12 @@ public class ChessMatch {
 
 	private void initialSetup() {
 		placeNewPiece('a', 1, new Rook(tabuleiro, Color.WHITE));
+		placeNewPiece('b', 1, new Knight(tabuleiro, Color.WHITE));
+		placeNewPiece('c', 1, new Bishop(tabuleiro, Color.WHITE));
+		placeNewPiece('d', 1, new Queen(tabuleiro, Color.WHITE));
 		placeNewPiece('e', 1, new King(tabuleiro, Color.WHITE));
+		placeNewPiece('f', 1, new Bishop(tabuleiro, Color.WHITE));
+		 placeNewPiece('g', 1, new Knight(tabuleiro, Color.WHITE));
 		placeNewPiece('h', 1, new Rook(tabuleiro, Color.WHITE));
 		placeNewPiece('a', 2, new Pawn(tabuleiro, Color.WHITE));
 		placeNewPiece('b', 2, new Pawn(tabuleiro, Color.WHITE));
@@ -204,18 +212,23 @@ public class ChessMatch {
 		placeNewPiece('f', 2, new Pawn(tabuleiro, Color.WHITE));
 		placeNewPiece('g', 2, new Pawn(tabuleiro, Color.WHITE));
 		placeNewPiece('h', 2, new Pawn(tabuleiro, Color.WHITE));
-		
+
 		placeNewPiece('a', 8, new Rook(tabuleiro, Color.BLACK));
-        placeNewPiece('e', 8, new King(tabuleiro, Color.BLACK));
-        placeNewPiece('h', 8, new Rook(tabuleiro, Color.BLACK));
-        placeNewPiece('a', 7, new Pawn(tabuleiro, Color.BLACK));
-        placeNewPiece('b', 7, new Pawn(tabuleiro, Color.BLACK));
-        placeNewPiece('c', 7, new Pawn(tabuleiro, Color.BLACK));
-        placeNewPiece('d', 7, new Pawn(tabuleiro, Color.BLACK));
-        placeNewPiece('e', 7, new Pawn(tabuleiro, Color.BLACK));
-        placeNewPiece('f', 7, new Pawn(tabuleiro, Color.BLACK));
-        placeNewPiece('g', 7, new Pawn(tabuleiro, Color.BLACK));
-        placeNewPiece('h', 7, new Pawn(tabuleiro, Color.BLACK));
+		placeNewPiece('b', 8, new Knight(tabuleiro, Color.BLACK));
+		placeNewPiece('c', 8, new Bishop(tabuleiro, Color.BLACK));
+		placeNewPiece('d', 8, new Queen(tabuleiro, Color.BLACK));
+		placeNewPiece('e', 8, new King(tabuleiro, Color.BLACK));
+		placeNewPiece('f', 8, new Bishop(tabuleiro, Color.BLACK));
+		placeNewPiece('g', 8, new Knight(tabuleiro, Color.BLACK));
+		placeNewPiece('h', 8, new Rook(tabuleiro, Color.BLACK));
+		placeNewPiece('a', 7, new Pawn(tabuleiro, Color.BLACK));
+		placeNewPiece('b', 7, new Pawn(tabuleiro, Color.BLACK));
+		placeNewPiece('c', 7, new Pawn(tabuleiro, Color.BLACK));
+		placeNewPiece('d', 7, new Pawn(tabuleiro, Color.BLACK));
+		placeNewPiece('e', 7, new Pawn(tabuleiro, Color.BLACK));
+		placeNewPiece('f', 7, new Pawn(tabuleiro, Color.BLACK));
+		placeNewPiece('g', 7, new Pawn(tabuleiro, Color.BLACK));
+		placeNewPiece('h', 7, new Pawn(tabuleiro, Color.BLACK));
 
 	}
 
